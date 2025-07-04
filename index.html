@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Said Mancilla - Clínica Dental</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 70%, #48cae4 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Modern Header */
+        header {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: -0.8px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #48cae4, #f093fb);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* Modern Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 0;
+            text-align: center;
+            color: white;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #48cae4 0%, #667eea 100%);
+            color: white;
+            padding: 20px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 50px rgba(72, 202, 228, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 80px rgba(72, 202, 228, 0.6);
+            background: linear-gradient(135deg, #667eea 0%, #48cae4 100%);
+        }
+
+        /* Modern Services Section */
+        .services {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95));
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: #1a1a1a;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #48cae4, #667eea, #f093fb);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #48cae4, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Modern About Section */
+        .about {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .about-image {
+            text-align: center;
+            position: relative;
+        }
+
+        .doctor-photo {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .doctor-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Modern Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: #1a1a1a;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #48cae4 0%, #667eea 50%, #f093fb 100%);
+            border-radius: 20px;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-item:hover::before {
+            opacity: 1;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(72, 202, 228, 0.4);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-item p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Modern Footer */
+        footer {
+            background: #1a1a1a;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 3rem 0;
+            font-weight: 300;
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: -1px;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .doctor-photo {
+                width: 280px;
+                height: 280px;
+            }
+
+            .services h2,
+            .contact h2,
+            .about-text h2 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-button {
+                padding: 18px 40px;
+                font-size: 1rem;
+            }
+
+            .service-card,
+            .contact-item {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">🦷 Dr. Said Mancilla</a>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="active">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Excelencia Dental Moderna</h1>
+                <p>Transformamos sonrisas con tecnología de vanguardia y un enfoque personalizado. El Dr. Said Mancilla Hernández te ofrece la mejor experiencia en cuidado dental integral.</p>
+                <a href="#contacto" class="cta-button">Reserva tu Consulta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <h2>Servicios Especializados</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🦷</div>
+                    <h3>Odontología General</h3>
+                    <p>Diagnóstico integral y tratamientos preventivos con tecnología digital de última generación para mantener tu salud dental óptima.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Diseño de Sonrisa</h3>
+                    <p>Transformación estética completa mediante carillas, blanqueamientos avanzados y diseño digital personalizado de tu sonrisa ideal.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Ortodoncia Invisible</h3>
+                    <p>Alineadores transparentes y brackets estéticos con tecnología 3D para corrección dental discreta y eficiente.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Implantología</h3>
+                    <p>Implantes dentales de titanio con cirugía guiada por computadora y restauración inmediata en casos seleccionados.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Endodoncia Avanzada</h3>
+                    <p>Tratamientos de conducto con microscopia y técnicas rotatorias para preservar tus dientes naturales con máxima precisión.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Periodoncia</h3>
+                    <p>Tratamiento especializado de encías con terapia láser y regeneración tisular para mantener la salud periodontal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="nosotros">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Dr. Said Mancilla Hernández</h2>
+                    <p>Especialista en Odontología Integral con más de 12 años de experiencia transformando sonrisas y mejorando la calidad de vida de mis pacientes.</p>
+                    <p>Egresado con honores de la Universidad Autónoma de Nuevo León, con especialización en Implantología y Estética Dental en instituciones de prestigio internacional.</p>
+                    <p>Mi compromiso es brindarte atención personalizada utilizando las técnicas más avanzadas en un ambiente de confort y confianza total.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Dr. Said Mancilla Hernández" class="doctor-photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <div class="container">
+            <h2>Agenda tu Cita</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <h3>Ubicación</h3>
+                    <p>Av. Constitución 1234<br>Col. Centro, Monterrey, N.L.<br>C.P. 64000</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <h3>Contacto</h3>
+                    <p>Tel: (81) 1234-5678<br>WhatsApp: (81) 9876-5432<br>Urgencias 24/7</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <h3>Horarios</h3>
+                    <p>Lunes - Viernes: 9:00 - 20:00<br>Sábados: 9:00 - 15:00<br>Domingos: Solo urgencias</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>contacto@drsaidmancilla.com<br>citas@drsaidmancilla.com<br>Respuesta en 24hrs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Dr. Said Mancilla Hernández - Clínica Dental. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling with enhanced animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced header scroll effects
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.scrollY > 50;
+            
+            if (scrolled) {
+                header.style.background = 'rgba(255, 255, 255, 0.12)';
+                header.style.backdropFilter = 'blur(40px)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.08)';
+                header.style.backdropFilter = 'blur(30px)';
+            }
+        });
+
+        // Active navigation highlighting with smooth transitions
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards and contact items
+        document.querySelectorAll('.service-card, .contact-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Mobile menu toggle (for future implementation)
+        const createMobileMenu = () => {
+            if (window.innerWidth <= 768) {
+                // Mobile menu functionality can be added here
+                console.log('Mobile view detected');
+            }
+        };
+
+        window.addEventListener('resize', createMobileMenu);
+        createMobileMenu();
+
+        // Enhanced button interactions
+        document.querySelectorAll('.cta-button, .service-card, .contact-item').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
+    </script>
+</body>
+</html>
